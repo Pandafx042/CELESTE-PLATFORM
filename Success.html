@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Successful</title>
+</head>
+
+<body>
+
+<script>
+
 const userData = JSON.parse(localStorage.getItem("celesteUser"));
 
 const message =
@@ -6,10 +17,10 @@ const message =
 👤 Name: ${userData.fullName}
 🆔 Username: ${userData.username}
 📧 Email: ${userData.email}
-🤳 Phone: ${userData.phone}
+📱 Phone: ${userData.phone}
 💎 Plan: ${userData.plan}
 
-✅ Status: PAID VIA PAYSTACK`;
+✅ Status: PAID`;
 
 const telegramLink =
 "https://t.me/coachfavour01?text=" + encodeURIComponent(message);
@@ -17,3 +28,8 @@ const telegramLink =
 alert("Payment successful! Redirecting to Telegram...");
 
 window.location.href = telegramLink;
+
+</script>
+
+</body>
+</html>
