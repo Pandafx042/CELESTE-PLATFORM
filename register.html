@@ -405,12 +405,23 @@ document.getElementById('final-pay-btn').addEventListener('click', payWithPaysta
 
 // UPDATED PAYMENT FUNCTION (PAYSTACK WITH CHANNELS INCLUDED)
 function payWithPaystack() {
-function payWithPaystack() {
 
     const plan = localStorage.getItem("selectedPlan") || "";
 
-    const name = encodeURIComponent(userData.fullName);
-    const email = encodeURIComponent(userData.email);
+    const fullName = document.getElementById("fullName").value;
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+
+    const userData = {
+        fullName: fullName,
+        username: username,
+        email: email,
+        phone: phone,
+        plan: plan
+    };
+
+    localStorage.setItem("celesteUser", JSON.stringify(userData));
 
     let paymentLink = "";
 
@@ -421,10 +432,8 @@ function payWithPaystack() {
         paymentLink = "https://paystack.shop/pay/celestecompany-max";
     }
 
-    const redirectLink = `${paymentLink}?name=${name}&email=${email}`;
-
-    window.location.href = redirectLink;
-    }
+    window.location.href = paymentLink;
+}
 // ================= PLEASE WAIT =================
 function showPleaseWait(button, callback) {
 button.classList.add('loading');
