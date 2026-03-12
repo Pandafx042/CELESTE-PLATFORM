@@ -405,6 +405,7 @@ document.getElementById('final-pay-btn').addEventListener('click', payWithPaysta
 
 // UPDATED PAYMENT FUNCTION (PAYSTACK WITH CHANNELS INCLUDED)
 function payWithPaystack() {
+function payWithPaystack() {
 
     const plan = localStorage.getItem("selectedPlan") || "";
 
@@ -415,17 +416,15 @@ function payWithPaystack() {
 
     if (plan.toLowerCase().includes("lite")) {
         paymentLink = "https://paystack.shop/pay/Celeste-Elite";
-    }
-
+    } 
     else if (plan.toLowerCase().includes("max")) {
         paymentLink = "https://paystack.shop/pay/celestecompany-max";
     }
 
-    const finalLink = paymentLink + "?email=" + email + "&name=" + name;
+    const redirectLink = `${paymentLink}?name=${name}&email=${email}`;
 
-    window.location.href = finalLink;
-
-}
+    window.location.href = redirectLink;
+    }
 // ================= PLEASE WAIT =================
 function showPleaseWait(button, callback) {
 button.classList.add('loading');
