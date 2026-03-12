@@ -408,10 +408,10 @@ function payWithPaystack() {
 
     const plan = localStorage.getItem("selectedPlan") || "";
 
-    const fullName = document.getElementById("fullName").value;
+    const fullName = document.getElementById("full-name").value;
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
-    const phone = document.getElementById("phone").value;
+    const phone = document.getElementById("phone-number").value;
 
     const userData = {
         fullName: fullName,
