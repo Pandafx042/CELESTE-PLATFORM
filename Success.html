@@ -11,7 +11,7 @@
 body{
 background:#000;
 color:white;
-font-family:Arial, Helvetica, sans-serif;
+font-family: "inter", Helvetica, sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -63,24 +63,27 @@ margin-bottom:25px;
 }
 
 .redirect{
+.redirect{
 display:flex;
 align-items:center;
-gap:10px;
-font-size:16px;
+justify-content:center;
+gap:8px;
+margin-top:10px;
 }
 
 .spinner{
-width:18px;
-height:18px;
+width:16px;
+height:16px;
 border:3px solid rgba(255,255,255,0.3);
-border-top:3px solid #00ff40;
+border-top:3px solid #ffffff;
 border-radius:50%;
-animation:spin 1s linear infinite;
+animation:spin 0.7s linear infinite;
 }
 
 @keyframes spin{
-to{transform:rotate(360deg);}
-}
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+  }
 
 </style>
 </head>
@@ -95,10 +98,10 @@ to{transform:rotate(360deg);}
 <div class="subtitle">Your payment has been confirmed.</div>
 
 <div class="redirect">
-<div class="spinner"></div>
-<span>Redirecting to Telegram to complete your enrollment....</span>
+  <span>Redirecting to Telegram to complete your enrollment...</span>
+  <div class="spinner"></div>
 </div>
-
+  
 <script>
 
 // get stored user data
