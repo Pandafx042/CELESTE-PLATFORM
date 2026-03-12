@@ -13,60 +13,53 @@ background:#000;
 color:white;
 font-family:Arial, Helvetica, sans-serif;
 display:flex;
-flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
 height:100vh;
+flex-direction:column;
 text-align:center;
 }
 
-svg{
-width:140px;
+.checkmark-circle{
+width:120px;
+height:120px;
+border-radius:50%;
+border:4px solid #00ff40;
+display:flex;
+align-items:center;
+justify-content:center;
 margin-bottom:25px;
+animation:circle 0.6s ease-in-out forwards;
 }
 
-.circle{
-stroke:#00ff40;
-stroke-width:6;
-fill:none;
-stroke-linecap:round;
-stroke-dasharray:345;
-stroke-dashoffset:345;
-animation:drawCircle 0.9s ease forwards;
+.checkmark{
+font-size:60px;
+color:#00ff40;
+opacity:0;
+animation:tick 0.5s ease forwards;
+animation-delay:0.6s;
 }
 
-.check{
-stroke:#00ff40;
-stroke-width:6;
-fill:none;
-stroke-linecap:round;
-stroke-linejoin:round;
-stroke-dasharray:80;
-stroke-dashoffset:80;
-animation:drawCheck 0.7s ease forwards;
-animation-delay:1s;
+@keyframes circle{
+0%{transform:scale(0);}
+100%{transform:scale(1);}
 }
 
-@keyframes drawCircle{
-to{stroke-dashoffset:0;}
-}
-
-@keyframes drawCheck{
-to{stroke-dashoffset:0;}
+@keyframes tick{
+0%{opacity:0; transform:scale(0);}
+100%{opacity:1; transform:scale(1);}
 }
 
 .title{
 font-size:28px;
 font-weight:900;
-margin-top:10px;
-font-family: 'Plus Jakarta Sans', sans-serif;
+margin-bottom:8px;
+font-family: "Times New Roman", Times, serif;
 }
 
 .subtitle{
 color:#aaa;
-margin-top:6px;
-margin-bottom:30px;
-font-family: 'Plus Jakarta Sans', sans-serif;
+margin-bottom:25px;
 }
 
 .redirect{
@@ -74,13 +67,12 @@ display:flex;
 align-items:center;
 gap:10px;
 font-size:16px;
-font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .spinner{
 width:18px;
 height:18px;
-border:3px solid rgba(255,255,255,0.25);
+border:3px solid rgba(255,255,255,0.3);
 border-top:3px solid #00ff40;
 border-radius:50%;
 animation:spin 1s linear infinite;
@@ -95,15 +87,11 @@ to{transform:rotate(360deg);}
 
 <body>
 
-<svg viewBox="0 0 120 120">
+<div class="checkmark-circle">
+<div class="checkmark">✔</div>
+</div>
 
-<circle class="circle" cx="60" cy="60" r="55"/>
-
-<path class="check" d="M35 65 L55 85 L90 40"/>
-
-</svg>
-
-<div class="title">PAYMENT SUCCESSFUL!</div>
+<div class="title">PAYMENT SUCCESSFUL</div>
 <div class="subtitle">Your payment has been confirmed.</div>
 
 <div class="redirect">
@@ -113,28 +101,31 @@ to{transform:rotate(360deg);}
 
 <script>
 
+// get stored user data
 const userData = JSON.parse(localStorage.getItem("celesteUser")) || {};
 
+// get paystack reference
 const params = new URLSearchParams(window.location.search);
 const reference = params.get("reference") || "N/A";
 
+// build telegram message
 const message =
 `🚀 Hello Coach, I have made my payment for Celeste activation, Here are my details:
 
 👤 Name: ${userData.fullName}
 🆔 Username: ${userData.username}
 📧 Email: ${userData.email}
-🤳 Phone: ${userData.phone}
+📱 Phone: ${userData.phone}
 💎 Plan: ${userData.plan}
 
 🧾 Ref: ${reference}
 
 ✅ Status: PAID VIA PAYSTACK CHECK OUT!`;
-
-
+// telegram link
 const telegramLink =
 "https://t.me/coachfavour01?text=" + encodeURIComponent(message);
 
+// redirect after 3 seconds
 setTimeout(()=>{
 window.location.href = telegramLink;
 },5000);
@@ -142,4 +133,4 @@ window.location.href = telegramLink;
 </script>
 
 </body>
-  </html>
+</html>
