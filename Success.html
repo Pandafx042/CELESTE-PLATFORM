@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Payment Successful</title>
 
 <style>
@@ -11,53 +10,58 @@
 body{
 background:#000;
 color:white;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Arial, sans-serif;
 display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
 flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
 text-align:center;
 }
 
-.checkmark-circle{
-width:120px;
-height:120px;
-border-radius:50%;
-border:4px solid #00ff40;
-display:flex;
-align-items:center;
-justify-content:center;
+svg{
+width:130px;
 margin-bottom:25px;
-animation:circle 0.6s ease-in-out forwards;
 }
 
-.checkmark{
-font-size:60px;
-color:#00ff40;
-opacity:0;
-animation:tick 0.5s ease forwards;
-animation-delay:0.6s;
+.circle{
+stroke:#00ff40;
+stroke-width:6;
+fill:none;
+stroke-dasharray:377;
+stroke-dashoffset:377;
+animation:drawCircle 1s ease forwards;
 }
 
-@keyframes circle{
-0%{transform:scale(0);}
-100%{transform:scale(1);}
+.tick{
+stroke:#00ff40;
+stroke-width:6;
+fill:none;
+stroke-linecap:round;
+stroke-linejoin:round;
+stroke-dasharray:50;
+stroke-dashoffset:50;
+animation:drawTick 0.9s ease forwards;
+animation-delay:2s;
 }
 
-@keyframes tick{
-0%{opacity:0; transform:scale(0);}
-100%{opacity:1; transform:scale(1);}
+@keyframes drawCircle{
+to{stroke-dashoffset:0;}
+}
+
+@keyframes drawTick{
+to{stroke-dashoffset:0;}
 }
 
 .title{
 font-size:28px;
 font-weight:900;
-margin-bottom:8px;
+margin-top:10px;
 }
 
 .subtitle{
 color:#aaa;
+margin-top:6px;
 margin-bottom:25px;
 }
 
@@ -86,28 +90,29 @@ to{transform:rotate(360deg);}
 
 <body>
 
-<div class="checkmark-circle">
-<div class="checkmark">✔</div>
-</div>
+<svg viewBox="0 0 120 120">
+
+<circle class="circle" cx="60" cy="60" r="55"/>
+
+<polyline class="tick" points="40,65 55,80 85,45"/>
+
+</svg>
 
 <div class="title">PAYMENT SUCCESSFUL</div>
-<div class="subtitle">Your activation payment has been confirmed.</div>
+<div class="subtitle">Your payment has been confirmed</div>
 
 <div class="redirect">
 <div class="spinner"></div>
-<span>Redirecting to Telegram...</span>
+<span>Redirecting to complete your enrollment...</span>
 </div>
 
 <script>
 
-// get stored user data
 const userData = JSON.parse(localStorage.getItem("celesteUser")) || {};
 
-// get paystack reference
 const params = new URLSearchParams(window.location.search);
 const reference = params.get("reference") || "N/A";
 
-// build telegram message
 const message =
 `🚀 Hello Coach, I have made my payment for Celeste activation, Here are my details:
 
@@ -121,14 +126,13 @@ const message =
 
 ✅ Status: PAID VIA PAYSTACK CHECK OUT!`;
 
-// telegram link
 const telegramLink =
 "https://t.me/coachfavour01?text=" + encodeURIComponent(message);
 
-// redirect after 3 seconds
+// redirect after 5 seconds
 setTimeout(()=>{
 window.location.href = telegramLink;
-},3000);
+},5000);
 
 </script>
 
