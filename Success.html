@@ -1,0 +1,19 @@
+const userData = JSON.parse(localStorage.getItem("celesteUser"));
+
+const message =
+`🚀 Hello Coach, I have made my payment for Celeste activation, Here are my details:
+
+👤 Name: ${userData.fullName}
+🆔 Username: ${userData.username}
+📧 Email: ${userData.email}
+🤳 Phone: ${userData.phone}
+💎 Plan: ${userData.plan}
+
+✅ Status: PAID VIA PAYSTACK`;
+
+const telegramLink =
+"https://t.me/coachfavour01?text=" + encodeURIComponent(message);
+
+alert("Payment successful! Redirecting to Telegram...");
+
+window.location.href = telegramLink;
