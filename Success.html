@@ -2,15 +2,112 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Payment Successful</title>
+
+<style>
+
+body{
+background:#000;
+color:white;
+font-family:Arial, Helvetica, sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+flex-direction:column;
+text-align:center;
+}
+
+.checkmark-circle{
+width:120px;
+height:120px;
+border-radius:50%;
+border:4px solid #00ff40;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-bottom:25px;
+animation:circle 0.6s ease-in-out forwards;
+}
+
+.checkmark{
+font-size:60px;
+color:#00ff40;
+opacity:0;
+animation:tick 0.5s ease forwards;
+animation-delay:0.6s;
+}
+
+@keyframes circle{
+0%{transform:scale(0);}
+100%{transform:scale(1);}
+}
+
+@keyframes tick{
+0%{opacity:0; transform:scale(0);}
+100%{opacity:1; transform:scale(1);}
+}
+
+.title{
+font-size:28px;
+font-weight:900;
+margin-bottom:8px;
+}
+
+.subtitle{
+color:#aaa;
+margin-bottom:25px;
+}
+
+.redirect{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:16px;
+}
+
+.spinner{
+width:18px;
+height:18px;
+border:3px solid rgba(255,255,255,0.3);
+border-top:3px solid #00ff40;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg);}
+}
+
+</style>
 </head>
 
 <body>
 
+<div class="checkmark-circle">
+<div class="checkmark">✔</div>
+</div>
+
+<div class="title">PAYMENT SUCCESSFUL</div>
+<div class="subtitle">Your activation payment has been confirmed.</div>
+
+<div class="redirect">
+<div class="spinner"></div>
+<span>Redirecting to Telegram...</span>
+</div>
+
 <script>
 
-const userData = JSON.parse(localStorage.getItem("celesteUser"));
+// get stored user data
+const userData = JSON.parse(localStorage.getItem("celesteUser")) || {};
 
+// get paystack reference
+const params = new URLSearchParams(window.location.search);
+const reference = params.get("reference") || "N/A";
+
+// build telegram message
 const message =
 `🚀 Hello Coach, I have made my payment for Celeste activation, Here are my details:
 
@@ -20,14 +117,18 @@ const message =
 📱 Phone: ${userData.phone}
 💎 Plan: ${userData.plan}
 
-✅ Status: PAID`;
+🧾 Ref: ${reference}
 
+✅ Status: PAID VIA PAYSTACK CHECK OUT!`;
+
+// telegram link
 const telegramLink =
 "https://t.me/coachfavour01?text=" + encodeURIComponent(message);
 
-alert("Payment successful! Redirecting to Telegram...");
-
+// redirect after 3 seconds
+setTimeout(()=>{
 window.location.href = telegramLink;
+},3000);
 
 </script>
 
